@@ -1,0 +1,30 @@
+{
+  "name": "testapp",
+  "version": "1.0.0",
+  "description": "testing koa v2",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel src -d dist | nodemon dist",
+    "watch": "babel -w src -d dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "koa",
+    "next",
+    "testing"
+  ],
+  "author": "Maotora.",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.18.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.18.0",
+    "koa": "^2.0.0-alpha.7"
+  },
+  "devDependencies": {
+    "babel-polyfill": "^6.20.0",
+    "nodemon": "^1.11.0"
+  }
+}
