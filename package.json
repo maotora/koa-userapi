@@ -1,7 +1,7 @@
 {
-  "name": "testapp",
+  "name": "userapi",
   "version": "1.0.0",
-  "description": "testing koa v2",
+  "description": "api koa v2",
   "main": "index.js",
   "scripts": {
     "start": "babel src -d dist | nodemon dist/server",
@@ -15,7 +15,7 @@
     "testing"
   ],
   "author": "Maotora.",
-  "license": "UNLICENSED",
+  "license": "GPL",
   "dependencies": {
     "babel": "^6.5.2",
     "babel-cli": "^6.18.0",
