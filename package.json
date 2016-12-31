@@ -4,9 +4,10 @@
   "description": "testing koa v2",
   "main": "index.js",
   "scripts": {
-    "start": "babel src -d dist | nodemon dist",
+    "start": "babel src -d dist | nodemon dist/server",
     "watch": "babel -w src -d dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --compilers js:babel-core/register --require ./test/pre_test.js --recursive ./test",
+    "test:watch": "npm run test -- --watch"
   },
   "keywords": [
     "koa",
@@ -18,13 +19,27 @@
   "dependencies": {
     "babel": "^6.5.2",
     "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.0",
     "babel-preset-latest": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
-    "koa": "^2.0.0-alpha.7"
+    "debug": "^2.6.0",
+    "es6-promise": "^4.0.5",
+    "form-urlencoded": "^1.5.0",
+    "koa": "^2.0.0",
+    "koa-better-body": "^3.0.2",
+    "koa-convert": "^1.2.0",
+    "koa-rest-router": "^1.0.0",
+    "koa-router": "^5.4.0",
+    "mongoose": "^4.7.5"
   },
   "devDependencies": {
     "babel-polyfill": "^6.20.0",
-    "nodemon": "^1.11.0"
+    "chai": "^3.5.0",
+    "chai-jquery": "^2.0.0",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
+    "supertest": "^2.0.1",
+    "supertest-koa-agent": "^0.3.0"
   }
 }
