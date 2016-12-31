@@ -1,4 +1,4 @@
-import app from './../src/server/';
+import app from './../dist/server/app';
 import supertest, { agent } from 'supertest';
 import User from './../src/server/model/user';
 

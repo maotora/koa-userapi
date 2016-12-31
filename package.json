@@ -6,7 +6,7 @@
   "scripts": {
     "start": "babel src -d dist | nodemon dist/server",
     "watch": "babel -w src -d dist",
-    "test": "mocha --compilers js:babel-core/register --require ./test/pre_test.js --recursive ./test",
+    "test": "mocha --compilers js:babel-core/register --require 'babel-polyfill' --require ./test/pre_test.js --recursive ./test",
     "test:watch": "npm run test -- --watch"
   },
   "keywords": [
