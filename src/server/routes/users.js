@@ -11,7 +11,7 @@ api.resource('users', {
         let userList = await User.find({});
         let list = '';
 
-        userList.forEach(user => list += `Name: ${user.name}\nAge: ${user.age}\nId: ${user._id}\n`);
+        userList.forEach(user => list += `Name: ${user.username}\nAge: ${user.age}\nId: ${user._id}\n`);
 
         ctx.status = 200;
         ctx.body = list;
@@ -26,7 +26,7 @@ api.resource('users', {
         let lastUser = await User.findOne({_id: userId});
 
         ctx.status = 200;
-        ctx.body = `Name: ${lastUser.name}\nAge: ${lastUser.age}\nHeight: ${lastUser.height}`;
+        ctx.body = `Name: ${lastUser.username}\nAge: ${lastUser.age}\nHeight: ${lastUser.height}`;
 
         await next(); 
     },
@@ -77,4 +77,4 @@ api.resource('users', {
 
 });
 
-export { api };
+export default api;

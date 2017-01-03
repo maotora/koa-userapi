@@ -15,7 +15,7 @@ describe('Main App', () => {
     let a_user = {};
 
     beforeEach(async () => {
-        a_user = { name: "testing", age: 22, height: 179 };
+        a_user = { username: "testing", password: 'newpassword', age: 22, height: 179 };
         await User.remove({});
     })
 

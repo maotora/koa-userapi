@@ -3,7 +3,9 @@ import convert from 'koa-convert';
 import body from 'koa-better-body';
 import mongoose from 'mongoose';
 import es6Promise from 'es6-promise';
-import { api } from './routes/users';
+import passport from 'koa-passport';
+import authApi from './routes/auth';
+import api from './routes/users';
 
 mongoose.Promise = es6Promise.Promise;
 try {
@@ -20,6 +22,9 @@ app.use(convert(body({
     multipart: true,
 })));
 
+require('./service/passport');
+app.use(convert(passport.initialize()));
 app.use(api.middleware());
+app.use(authApi.middleware());
 
 export default app;
