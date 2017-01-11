@@ -1,29 +1,40 @@
 import User from './../model/user';
+import jwt from 'jwt-simple';
+import secret from './../secret';
+
+function tokenForUser({id}) {
+    
+    const timeStamp = new Date().getTime,
+          payload = {sub: id, iat: timeStamp},
+          token = jwt.encode(payload, secret);
+
+    return token;
+}
+
+const signIn = async (ctx, next) => {
+    
+    const user = await ctx.request.body;
+    const token = tokenForUser(user);
+
+    ctx.set('authorization', token);
+    ctx.status = 200;
+    ctx.redirect('/api/v1/success');
+};
 
 const signUp = async (ctx, next) => {
     
-    const user = await ctx.request.fields;
+    const bodyInfo = await ctx.request.body;
 
-    try {
-        if(!user.username || !user.password) {
-            ctx.status = 402;
-            ctx.body = "Error, username and password must be provided!";
-        }
+    const userInst = new User(bodyInfo);
 
-    }catch(err){
-        ctx.status = 402;
-        ctx.body = "You must fill the form!";
-        return err;
-    } 
+    const user = await userInst.save();
 
-    const toSave = new User(user);
+    const token = tokenForUser(user);
 
-    toSave.save((err, user) => {
-        
-        if(err) { return next(err); }
+    ctx.status = 200;
+    ctx.response.body = token;
 
-        next();
-    });
+    return next();
 };
 
-export { signUp };
+export { signUp, signIn };

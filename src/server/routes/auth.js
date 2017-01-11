@@ -1,28 +1,23 @@
 import Router from 'koa-rest-router';
 import passport from 'koa-passport';
-import { signUp } from './../controllers/auth';
+import jwt from 'jwt-simple';
+import secret from './../secret';
+import { signUp, signIn } from './../controllers/auth';
 
 const api = new Router({prefix: '/api/v1'});
 
 const router = api.loadMethods();
 
-router.post('/login', async function(ctx, next) {
-    
-    const user = await ctx.request.fields;
+const requireAuth = passport.authenticate('local', { session: false});
 
-    ctx.body = await user;
-    console.log(user);
-    await next();
-}, passport.authenticate('local', {successRedirect: 'http://localhost:3000/api/v1/success', failureRedirect: 'http://localhost:3000/api/v1/fail', session: false}));
+const requireJwtAuth = passport.authenticate('jwt', {session: false});
 
-router.post('/signup', signUp, async (ctx, next) => {
-    
-    const user = await ctx.request.fields;
-    console.log(user);
-    await next();
-});
+router.post('/login', requireAuth, signIn);
+
+router.post('/signup', signUp);
 
 router.get('/success', async (ctx, next) => ctx.body = await "success!");
+
 router.get('/fail', async (ctx, next) => ctx.body = await "fail!");
 
 export default router;

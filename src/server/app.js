@@ -20,6 +20,7 @@ const app = new koa(); //- initialize app
 
 app.use(convert(body({
     multipart: true,
+    fields: 'body'
 })));
 
 require('./service/passport');

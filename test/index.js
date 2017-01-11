@@ -1,6 +1,7 @@
 import app from './../dist/server/app';
 import supertest, { agent } from 'supertest';
 import User from './../src/server/model/user';
+import Router from './../src/server/routes/auth';
 
 let request;
 
@@ -10,40 +11,44 @@ try {
     console.log(err);
 }
 
-describe('Main App', () => {
+describe('User Api', () => {
 
     let a_user = {};
 
     beforeEach(async () => {
-        a_user = { username: "testing", password: 'newpassword', age: 22, height: 179 };
+        a_user = { "username": "testing", "password": 'newpassword', "age": 22, "height": 179 };
         await User.remove({});
     })
 
-    afterEach(async () => await User.remove({}))
+    afterEach(async () => await User.remove({}));
 
-    it('Get http requests', (done) => {
-        request
-            .get('/api/v1/users')
-            .expect(200, done);
+    it('Gets users', async () => {
+        const response = await request.post('/api/v1/signup/').send(a_user);
+        const { text } = response;
+
+        await request
+            .post('/api/v1/users')
+            .set('authorization', text)
+            .expect(200);
     });
 
-    it('makes post http requests', (done) => {
-        request
+    it('Posts users', async () => {
+        await request
             .post('/api/v1/users')
             .send(a_user)
-            .expect(301, done);
+            .expect(200);
     });
 
-    it('makes put http requests', async () => {
+    it('Update user', async () => {
         let user = new User(a_user);
         let insertedUser = await user.save();
 
-        request
+        await request
             .put(`/api/v1/users/${insertedUser._id}`)
             .expect(302);
     });
 
-    it('makes del http requests', async () => {
+    it('Delete User', async () => {
         let user = new User(a_user);
         let insertedUser = await user.save();
 

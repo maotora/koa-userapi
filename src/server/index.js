@@ -1,7 +1,6 @@
 import 'babel-polyfill';
 
 import app from './app';
-//- Server setups
 
 const port = process.env.PORT || 3000;
 

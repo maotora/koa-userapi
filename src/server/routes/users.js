@@ -1,25 +1,36 @@
 import Router from 'koa-rest-router';
 import User from './../model/user';
 import formurlencoded from 'form-urlencoded';
+import passport from 'koa-passport';
+import { signUp, signIn } from './../controllers/auth';
+
+const requireJwtAuth = passport.authenticate('jwt', {session: false});
 
 const api = new Router({prefix: '/api/v1'});
 
 api.resource('users', {
 
-    index: async (ctx, next) => {
-        //- fetching from the db then list 
-        let userList = await User.find({});
-        let list = '';
+    index: [
+        requireJwtAuth,
+        async (ctx, next) => {
+            
+            //- fetching from the db then list 
+            let userList = await User.find({});
+            let list = '';
 
-        userList.forEach(user => list += `Name: ${user.username}\nAge: ${user.age}\nId: ${user._id}\n`);
+            userList.forEach(user => list += `Name: ${user.username}\nAge: ${user.age}\nId: ${user._id}\n`);
 
-        ctx.status = 200;
-        ctx.body = list;
+            ctx.status = 200;
+            ctx.body = list;
 
-        await next(); 
-    },
+            await next(); 
+        }
+    ],
 
     show: async (ctx, next) => {
+        const req = await ctx.request;
+        console.log('request here', req);
+
         //- fetch a user..
         let userId = await ctx.params.user;
 
@@ -31,21 +42,14 @@ api.resource('users', {
         await next(); 
     },
 
-    create: async (ctx, next) => {
-        //- post a new user
-        let userData = await ctx.request.fields;
+    create:[
+        signUp,
+        async (ctx, next) => {
+            let token = await ctx.request.body;
 
-        let user = await new User(userData);
-
-        let savedUser = await user.save();
-        console.log(savedUser._id);
-
-        ctx.status = 301;
-
-        ctx.response.redirect(`${savedUser._id}`);
-
-        return next(); 
-    },
+            await next(); 
+        }
+    ],
 
     edit: (ctx, next) => {
         //- single user details for editing
@@ -57,7 +61,7 @@ api.resource('users', {
 
         let userId = await ctx.params.user;
 
-        await User.update({_id: userId}, ctx.request.fields);
+        await User.update({_id: userId}, ctx.request.body);
 
         ctx.status = 202;
         ctx.response.redirect(`${userId}`);
