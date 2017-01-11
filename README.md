@@ -7,7 +7,7 @@ Koa v2 user api.
 * koa-rest-router.
 * koa-better-body.
 * passport-jwt & passport-local Authentication.
-* jwt-local creating my jwts.
+* jwt-simple creating my jwts.
 * mongoose.
 * async/awaits *If i should even mention this*.
 
