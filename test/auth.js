@@ -10,7 +10,12 @@ describe('Authentication', () => {
     let a_user = {};
 
     beforeEach(async () => {
-        a_user = { "username": "testing", "password": 'newpassword', "age": 22, "height": 179 };
+        a_user = { 
+            "username": "testing",
+            "password": 'newpassword',
+            "age": 22, "height": 179 
+        };
+
         await User.remove({});
     })
 
@@ -20,7 +25,7 @@ describe('Authentication', () => {
         await request(inst)
             .post('/api/v1/signup')
             .send(a_user)
-            .expect(/[a-zA-Z0-9-_]+?\.[a-zA-Z0-9-_]+?\.([a-zA-Z0-9-_]+)[/a-zA-Z0-9-_]+?$/); //- Token
+            .expect(/[a-zA-Z0-9-_]+?\.[a-zA-Z0-9-_]+?\.([a-zA-Z0-9-_]+)[/a-zA-Z0-9-_]+?$/);
     });
 
     it('signs in', async () => {
@@ -34,12 +39,12 @@ describe('Authentication', () => {
         await request(inst)
             .post('/api/v1/login')
             .send(a_user)
-            .expect(/success/); //- Redirected Url
+            .expect(/success/);
     });
 
     it('signs out', async () => {
         await request(inst)
             .get('/api/v1/users')
-            .expect(/Unauthorized/); //- Authenticated request fails!
+            .expect(/Unauthorized/);
     });
 });
