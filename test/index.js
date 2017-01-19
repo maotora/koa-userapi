@@ -21,8 +21,15 @@ describe('User Api', () => {
 
     afterEach(async () => await User.remove({}));
 
+    it('Gets home', async() => {
+        await request(inst)
+            .get('/api/v1/')
+            .expect(200)
+            .expect(/Welcome/)
+    });
+
     it('Gets users', async () => {
-        const response = await request(inst).post('/api/v1/signup').send(a_user);
+        const response = await request(inst).post('/api/v1/users').send(a_user);
         const { text } = response;
 
         await request(inst)

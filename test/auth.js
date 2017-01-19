@@ -23,14 +23,14 @@ describe('Authentication', () => {
     
     it('signs up', async () => {
         await request(inst)
-            .post('/api/v1/signup')
+            .post('/api/v1/users')
             .send(a_user)
             .expect(/[a-zA-Z0-9-_]+?\.[a-zA-Z0-9-_]+?\.([a-zA-Z0-9-_]+)[/a-zA-Z0-9-_]+?$/);
     });
 
     it('signs in', async () => {
         await request(inst)
-            .post('/api/v1/signup')
+            .post('/api/v1/users')
             .send(a_user);
 
         delete a_user.age;
