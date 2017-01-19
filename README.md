@@ -4,27 +4,53 @@ Koa v2 user api.
 
 ##Contains
 
-* koa-rest-router.
-* koa-better-body.
-* passport-jwt & passport-local Authentication.
-* jwt-simple creating my jwts.
-* mongoose.
+* `koa-rest-router`.
+* `koa-better-body`.
+* `koa-passport` with `passport-jwt` & `passport-local` Auth
+* `jwt-simple` creating my jwts.
+* `mongoose`.
 * async/awaits *If i should even mention this*.
 
-###Starting up.
+###App Preparations.
 
 Run your `mongod` service. 
 
-Start running `npm install` to install packages then on some other window
+**Unix**
 
-type `npm run watch` which will start compiling and watching es6 files.
+    $ systemctl start mongod.service
 
-Start server with `npm run start` *This should be second because, it serves
-files from `/dist/src/server` and they need the babel compilation above.
+**Windows**
 
-Run tests with `npm run test` or watch them as you code with
-`npm run test:watch`.
+    > md C:\data\db && path/to/mongo/bin/mongod
+
+Install npm packages from `package.json`
+
+    npm install 
+
+**Run App** 
+
+Start compiling ES2016/2017 files.
+
+    npm run watch
+
+Start server with (uses files from `/dist/server` so you need the above step
+for this to work properly.
+
+    npm run start
+
+**Tests** 
+
+Run tests with 
+
+    npm run test
+
+Watch them as you code with
+
+    npm run test:watch
 
 Contribution welcome!
 
-Thank you.
+Special Thanks to: 
+
+- [tunnckoCore](https://github.com/tunnckoCore/)
+- [rkusa](https://github.com/rkusa/)
