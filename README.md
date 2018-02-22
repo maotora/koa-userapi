@@ -2,16 +2,16 @@
 
 Koa v2 user api.
 
-##Contains
+## Contains
 
 * `koa-rest-router`.
 * `koa-better-body`.
 * `koa-passport` with `passport-jwt` & `passport-local` Auth
 * `jwt-simple` creating my jwts.
 * `mongoose`.
-* async/awaits *If i should even mention this*.
+* async/awaits *If I should even mention this*.
 
-###App Preparations.
+### App Preparations.
 
 Run your `mongod` service. 
 
